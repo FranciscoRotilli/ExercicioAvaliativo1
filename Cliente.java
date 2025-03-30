@@ -48,4 +48,8 @@ public class Cliente {
 		}
 		return carrosVoadores.add(c);
 	}
+
+	public int contaCarrosVoadores() {
+		return carrosVoadores.size();
+	}
 }

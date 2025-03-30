@@ -10,8 +10,8 @@ public class ACMEFly {
 	// Atributos para redirecionamento de E/S
 	private Scanner entrada = new Scanner(System.in);  // Atributo para entrada padrao (teclado)
 	private PrintStream saidaPadrao = System.out;   // Guarda a saida padrao - tela (console)
-	private final String nomeArquivoEntrada = "entrada.txt";  // Nome do arquivo de entrada de dados
-	private final String nomeArquivoSaida = "saida.txt";  // Nome do arquivo de saida de dados
+	private final String nomeArquivoEntrada = "dadosentrada.txt";  // Nome do arquivo de entrada de dados
+	private final String nomeArquivoSaida = "dadossaida.txt";  // Nome do arquivo de saida de dados
 	private Clientela clientela;
 	private Frota frota;
 
@@ -65,6 +65,9 @@ public class ACMEFly {
 		consultaCarroVoadorMaisBarato();
 		consultaclienteMaiorRenda();
 		vendeCarroVoador();
+		consultaClienteMaisCarrosVoadores();
+		consultaCarroVoadorPlaca();
+		consultaCarroVoadorValorMedia();
 	}
 
 	public void cadastraCarroVoador() {
@@ -135,18 +138,50 @@ public class ACMEFly {
 			boolean carroExiste = cv != null;
 			if (!clienteExiste) {
 				System.out.println("5:erro-cliente inexistente.");
+				continue;
 			}
 			if (!carroExiste) {
-				System.out.println("6:erro-carro inexistente.");
+				System.out.println("5:erro-carro inexistente.");
+				continue;
 			}
-			if (clienteExiste && carroExiste) {
-				boolean venda = frota.vendeCarroVoador(cv, c);
-				if (venda) {
-					System.out.println("5:"+c.getNome()+":"+cv.getPlaca());
-				} else {
-					System.out.println("5:erro-carro possui cliente.");
-				}
+			boolean venda = frota.vendeCarroVoador(cv, c);
+			if (venda) {
+				System.out.println("5:"+c.getNome()+":"+cv.getPlaca());
+			} else {
+				System.out.println("5:erro-carro possui cliente.");
 			}
+		}
+	}
+
+	public void consultaClienteMaisCarrosVoadores() {
+		Cliente c = clientela.consultaClienteMaisCarrosVoadores();
+		if (c.contaCarrosVoadores() > 0) {
+			System.out.println("6:"+c.getNome()+":"+c.contaCarrosVoadores());
+		} else {
+			System.out.println("6:erro-nenhum cliente encontrado.");
+		}
+	}
+
+	public void consultaCarroVoadorPlaca() {
+		String placa = entrada.next();
+		CarroVoador cv = frota.consultaCarroVoador(placa);
+		if (cv == null) {
+			System.out.println("7:erro-carro inexistente.");
+		} else if (cv.getCliente() == null) {
+			System.out.println("7:erro-carro sem cliente.");
+		} else {
+			System.out.println("7:"+cv.getPlaca()+":"+cv.getCliente().getNome());
+		}
+	}
+
+	public void consultaCarroVoadorValorMedia() {
+		CarroVoador cv = frota.consultaCarroVoadorValorMedia();
+		if (cv == null) {
+			System.out.println("8:erro-carro inexistente.");
+		} else {
+			System.out.println("8:"+cv.getNumero()+":"+cv.getPlaca()+
+					":"+cv.getValor()+":"+cv.getCliente().getCodigo()+
+					":"+cv.getCliente().getNome()+":"+cv.getCliente().getRenda());
 		}
 	}
 }

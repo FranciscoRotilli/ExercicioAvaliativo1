@@ -26,9 +26,19 @@ public class Clientela {
 	}
 
 	public Cliente consultaclienteMaiorRenda() {
-		Cliente aux = clientes.get(0);
+		Cliente aux = clientes.getFirst();
 		for (Cliente cliente : clientes) {
 			if (cliente.getRenda() > aux.getRenda()) {
+				aux = cliente;
+			}
+		}
+		return aux;
+	}
+
+	public Cliente consultaClienteMaisCarrosVoadores() {
+		Cliente aux = clientes.getFirst();
+		for (Cliente cliente : clientes) {
+			if (cliente.contaCarrosVoadores() > aux.contaCarrosVoadores()) {
 				aux = cliente;
 			}
 		}
