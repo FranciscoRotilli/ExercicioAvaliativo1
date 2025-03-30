@@ -15,24 +15,12 @@ public class CarroVoador {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
 	public String getPlaca() {
 		return placa;
 	}
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
-
 	public double getValor() {
 		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
 	}
 
 	public Cliente getCliente() {
