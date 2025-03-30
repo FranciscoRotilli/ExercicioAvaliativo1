@@ -53,14 +53,15 @@ public class ACMEFly {
 	}
 
 	public ACMEFly() {
-		Locale.setDefault(Locale.ENGLISH);
-		entrada.useLocale(Locale.ENGLISH);
 		redirecionaEntrada();    // Redireciona Entrada para arquivos
 		redirecionaSaida();    // Redireciona Saida para arquivos
-		frota = new Frota();
-		clientela = new Clientela();
+		frota = new Frota(); // Inicializa Frota
+		clientela = new Clientela(); // Inicializa Clientela
 	}
 
+	/**
+	 * Executa todos os metodos na ordem solicitada.
+	 */
 	public void executar() {
 		cadastraCarroVoador();
 		cadastraCliente();
@@ -72,6 +73,12 @@ public class ACMEFly {
 		consultaCarroVoadorValorMedia();
 	}
 
+	/**
+	 * Roda em loop o cadastro de carros voadores,
+	 * finalizando quando a entrada for -1.
+	 * Apos cadastro concluido, exibe mensagem com informacoes.
+	 * Em caso de erro, exibem mensagem de erro.
+	 */
 	public void cadastraCarroVoador() {
         int numero;
         while (true) {
@@ -90,6 +97,12 @@ public class ACMEFly {
         }
     }
 
+	/**
+	 * Roda em loop o cadastro de clientes,
+	 * finalizando quando a entrada for -1.
+	 * Apos cadastro concluido, exibe mensagem com informacoes.
+	 * Em caso de erro, exibe mensagem de erro.
+	 */
 	public void cadastraCliente() {
         int codigo;
         while (true) {
@@ -109,6 +122,11 @@ public class ACMEFly {
 		}
     }
 
+	/**
+	 * Chama metodo para consultar carro voador mais barato.
+	 * Exibe mensagem com informacoes.
+	 * Caso nao encontre carros voadores cadastrados, exibe mensagem de erro.
+	 */
 	public void consultaCarroVoadorMaisBarato() {
 		CarroVoador cv = frota.consultaCarroVoadorMaisBarato();
 		if (cv != null) {
@@ -118,6 +136,11 @@ public class ACMEFly {
 		}
 	}
 
+	/**
+	 * Chama metodo para consultar cliente com maior renda.
+	 * Exibe mensagem com informacoes.
+	 * Caso nao encontre clientes cadastrados, exibe mensagem de erro.
+	 */
 	public void consultaclienteMaiorRenda() {
 		Cliente c = clientela.consultaclienteMaiorRenda();
 		if (c != null) {
@@ -127,6 +150,12 @@ public class ACMEFly {
 		}
 	}
 
+	/**
+	 * Roda em loop a venda de carros voadores,
+	 * finalizando quando a entrada for -1.
+	 * Quando conclui a venda, exibe informacoes.
+	 * Se encontra erro, exibe mensagem e reinicia o loop.
+	 */
 	public void vendeCarroVoador() {
 		while (true) {
 			int codigoCliente = entrada.nextInt();
@@ -136,13 +165,11 @@ public class ACMEFly {
 			int numeroCarro = entrada.nextInt();
 			Cliente c = clientela.consultaCliente(codigoCliente);
 			CarroVoador cv = frota.consultaCarroVoador(numeroCarro);
-			boolean clienteExiste = c != null;
-			boolean carroExiste = cv != null;
-			if (!clienteExiste) {
+			if (c == null) {
 				System.out.println("5:erro-cliente inexistente.");
 				continue;
 			}
-			if (!carroExiste) {
+			if (cv == null) {
 				System.out.println("5:erro-carro inexistente.");
 				continue;
 			}
@@ -155,6 +182,11 @@ public class ACMEFly {
 		}
 	}
 
+	/**
+	 * Chama metodo para consultar cliente com mais carros voadores.
+	 * Exibe mensagem com informacoes.
+	 * Caso nao encontre clientes cadastrados, exibe mensagem de erro.
+	 */
 	public void consultaClienteMaisCarrosVoadores() {
 		Cliente c = clientela.consultaClienteMaisCarrosVoadores();
 		if (c.contaCarrosVoadores() > 0) {
@@ -164,6 +196,12 @@ public class ACMEFly {
 		}
 	}
 
+	/**
+	 * Chama metodo para consultar carro voador pela placa.
+	 * Exibe informacoes.
+	 * Caso nao encontre o carro voador, exibe mensagem de erro.
+	 * Caso o carro voador nao possua cliente, exibe mensagem de erro.
+	 */
 	public void consultaCarroVoadorPlaca() {
 		String placa = entrada.next();
 		CarroVoador cv = frota.consultaCarroVoador(placa);
@@ -176,6 +214,11 @@ public class ACMEFly {
 		}
 	}
 
+	/**
+	 * Chama metodo para consultar o carro voador com valor mais proximo da
+	 * media, que tenha cliente.
+	 * Caso nao encontre um carro voador com cliente, retorna mensagem de erro.
+	 */
 	public void consultaCarroVoadorValorMedia() {
 		CarroVoador cv = frota.consultaCarroVoadorValorMedia();
 		if (cv == null) {
