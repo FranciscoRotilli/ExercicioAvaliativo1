@@ -52,14 +52,16 @@ public class ACMEFly {
 		System.setOut(saidaPadrao);
 	}
 
-	public void executar() {
+	public ACMEFly() {
 		Locale.setDefault(Locale.ENGLISH);
 		entrada.useLocale(Locale.ENGLISH);
 		redirecionaEntrada();    // Redireciona Entrada para arquivos
 		redirecionaSaida();    // Redireciona Saida para arquivos
 		frota = new Frota();
 		clientela = new Clientela();
+	}
 
+	public void executar() {
 		cadastraCarroVoador();
 		cadastraCliente();
 		consultaCarroVoadorMaisBarato();
