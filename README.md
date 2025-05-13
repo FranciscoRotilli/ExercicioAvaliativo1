@@ -1,4 +1,6 @@
-﻿## Pontifícia Universidade Católica do Rio Grande do Sul ##
+### Exercício avaliado com nota: 10.0/10.0
+ 
+ ## Pontifícia Universidade Católica do Rio Grande do Sul ##
  
 **Programação Orientada a Objetos Prof. Marcelo H. Yamaguti** 
 
